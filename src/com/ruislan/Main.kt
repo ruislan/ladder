@@ -117,7 +117,7 @@ class Game(
                 }
             }
             incrementHeight()
-            if (currentHeight == height) endGame()
+            if (currentHeight > height && canContinue) endGame() // on the highest ladder
             return packet
         } else return null
     }
@@ -165,11 +165,12 @@ fun main(args: Array<String>) {
 }
 
 fun newGame(player: Player) {
-    val game = Game(5, player, 100, 2)
+    val game = Game(5, player, 100, 1)
 
     println("Game start!")
-    println("There ara 5 ladders, each ladder has 3 packets, enter 1, 2, 3 to open,  enter other numbers to end game and take reward away.")
-
+    println("There ara ${game.height} ladders, each ladder has 3 packets, enter 1, 2, 3 to open,  enter other numbers to end game and take reward away.")
+    // game.printLadders() uncomment this to cheat
+    
     // game start
     while (game.canContinue) {
         val currentHeight = game.currentHeight
