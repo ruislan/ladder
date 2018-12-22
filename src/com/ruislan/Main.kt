@@ -189,7 +189,7 @@ fun newGame(player: Player) {
         }
     }
     // game over
-    println("Game ended at height: ${game.currentHeight - 1}")
+    println("Game ended at height: ${game.currentHeight}")
     println("$player win prize: ${game.prize}")
     println("show all ladders?")
     val showIt = readLine() ?: "y"
