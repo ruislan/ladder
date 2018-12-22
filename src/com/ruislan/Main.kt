@@ -106,7 +106,11 @@ class Game(
         if (canContinue && index > 0 && index <= 3) {
             val packet = ladders[currentHeight - 1].packets[index - 1]
             when (packet.type) {
-                Packet.Type.Gold -> prize = calculatePrize() // prize for this height
+                Packet.Type.Gold -> {
+                    prize = calculatePrize() // prize for this height
+                    if (currentHeight == height) endGame() // on the highest ladder
+                    else incrementHeight()
+                }
                 Packet.Type.Stop -> {
                     prize = bet
                     endGame()
@@ -116,8 +120,6 @@ class Game(
                     endGame()
                 }
             }
-            incrementHeight()
-            if (currentHeight > height && canContinue) endGame() // on the highest ladder
             return packet
         } else return null
     }
@@ -169,8 +171,8 @@ fun newGame(player: Player) {
 
     println("Game start!")
     println("There ara ${game.height} ladders, each ladder has 3 packets, enter 1, 2, 3 to open,  enter other numbers to end game and take reward away.")
-    // game.printLadders() uncomment this to cheat
-    
+//    game.printLadders() //uncomment this to cheat
+
     // game start
     while (game.canContinue) {
         val currentHeight = game.currentHeight
